@@ -11,9 +11,9 @@ public class Tower : MonoBehaviour {
 	
 	public GameObject turretHead;
 	public GameObject cannonMuzzle;
-
+	public GameObject projectile;
 	//internal vars (to hide)
-	float fireTimer = 0;
+	public float fireTimer = 0;
 	public GameObject target = null;
 
 
@@ -23,8 +23,10 @@ public class Tower : MonoBehaviour {
 			FindClosestTarget();
 		}
 
+
 		AimTarget ();
 
+		TryToAttack ();
 
 	}
 
@@ -62,8 +64,16 @@ public class Tower : MonoBehaviour {
 		}
 	}
 
-	private void LaunchAttack (){
+	private void TryToAttack (){
+		fireTimer += Time.deltaTime;
 
+		if (fireTimer >= fireDelay){
+			fireTimer = 0;
+			LaunchAttack ();
+		}
 	}
 
+	public virtual void LaunchAttack (){
+		Debug.Log ("attack launched");
+	}
 }

@@ -5,8 +5,10 @@ using System.Collections;
 public class TowerType0 : Tower {
 
 
-
-	void Update () {
-	
+	public override void LaunchAttack (){
+		GameObject newMissile = (GameObject) Instantiate (projectile, cannonMuzzle.transform.position, Quaternion.identity);
+		newMissile.GetComponent<Missile>().target = target;
+		newMissile.GetComponent<Missile>().damage = damage;
 	}
+
 }
