@@ -20,7 +20,7 @@ public class Tower : MonoBehaviour {
 
 	public void Update (){
 		if (target == null || DistanceToTarget() > range ){ //|| targetOutOfRange
-			FindNearestTarget();
+			FindClosestTarget();
 		}
 
 		AimTarget ();
@@ -34,12 +34,15 @@ public class Tower : MonoBehaviour {
 	private float DistanceToTarget() {
 		return (transform.position - target.transform.position).magnitude;
 	}
-	private void FindNearestTarget(){
+
+
+
+	private void FindClosestTarget(){
 		GameObject [] enemies;
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		GameObject closest = null;
 		float closestDistance = Mathf.Infinity;
-		Vector3 position = transform.position;
+		//Vector3 position = transform.position;
 
 		foreach (GameObject en in enemies){
 			Vector3 distanceVector = en.transform.position - transform.position;
@@ -57,6 +60,10 @@ public class Tower : MonoBehaviour {
 		if (target != null){
 			turretHead.transform.LookAt (target.transform);
 		}
+	}
+
+	private void LaunchAttack (){
+
 	}
 
 }
