@@ -17,6 +17,6 @@ public class DamageDealer : MonoBehaviour {
 	public void DamageDeal (GameObject victim){
 		victim.transform.GetComponent<Enemy>().ReceiveDamage(damage);
 
-		Destroy (gameObject);
+
 	}
 }

@@ -20,6 +20,7 @@ public class Missile : DamageDealer {
 		Debug.Log (col.transform.tag);
 		if (col.transform.tag == "Enemy"){
 			DamageDeal (col.transform.gameObject);
+			Destroy (gameObject);
 		}
 	}
 
