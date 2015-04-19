@@ -65,9 +65,10 @@ public class Tower : MonoBehaviour {
 	}
 
 	private void TryToAttack (){
-		fireTimer += Time.deltaTime;
+		if (target != null)
+			fireTimer += Time.deltaTime;
 
-		if (fireTimer >= fireDelay){
+		if (fireTimer >= fireDelay && target!= null){
 			fireTimer = 0;
 			LaunchAttack ();
 		}
