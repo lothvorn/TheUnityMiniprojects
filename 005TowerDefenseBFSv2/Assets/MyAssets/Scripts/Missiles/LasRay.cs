@@ -11,7 +11,9 @@ public class LasRay : DamageDealer {
 	public float persistenceTime = 1;
 	public LineRenderer lineRenderer;
 
-	void Start (){
+	new public void  Start (){
+		base.Start();
+
 		lineRenderer = GetComponent<LineRenderer>();
 		//init ray
 		lineRenderer.useWorldSpace = true;
@@ -26,9 +28,6 @@ public class LasRay : DamageDealer {
 	// Update is called once per frame
 	void Update () {
 		DrawRay();
-
-
-	
 	}
 
 	private void DrawRay(){
@@ -50,7 +49,7 @@ public class LasRay : DamageDealer {
 
 		foreach (RaycastHit go in hits){
 			if (go.transform.tag == "Enemy"){
-				DamageDeal (go.transform.gameObject);
+				DamageDeal (go.transform.gameObject); //so the damage will be dealt to every enemy hit by the ray
 			}
 		}
 	}

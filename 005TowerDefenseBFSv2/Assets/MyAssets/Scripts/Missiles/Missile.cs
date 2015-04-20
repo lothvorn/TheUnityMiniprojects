@@ -16,8 +16,8 @@ public class Missile : DamageDealer {
 
 	public void OnTriggerEnter (Collider col){
 
-		Debug.Log (col.transform.name);
-		Debug.Log (col.transform.tag);
+	//	Debug.Log (col.transform.name);
+	//	Debug.Log (col.transform.tag);
 		if (col.transform.tag == "Enemy"){
 			DamageDeal (col.transform.gameObject);
 			Destroy (gameObject);
