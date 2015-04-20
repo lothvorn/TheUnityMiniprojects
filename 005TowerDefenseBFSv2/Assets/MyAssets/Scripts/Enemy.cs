@@ -15,5 +15,8 @@ public class Enemy : MonoBehaviour {
 		if (currentDamage >= maxLife)
 			Destroy (gameObject);
 
+
 	}
+
+
 }
