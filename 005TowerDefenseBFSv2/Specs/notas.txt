@@ -1,0 +1,4 @@
+--torres
+---- dejar de disparar cuando el objetivo es destruido (buscar new target)
+---- controlar distancia maxima de disparo
+---- destruir misiles sin objetivo

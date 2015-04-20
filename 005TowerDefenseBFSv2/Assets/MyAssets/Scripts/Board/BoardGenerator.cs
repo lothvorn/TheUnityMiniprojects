@@ -19,7 +19,7 @@ public class BoardGenerator : MonoBehaviour {
 	void Start () {
 		Vector3 creationPointer = new Vector3 (0,0);
 
-		GameObject [,] boardMatrix = new GameObject[xSize, ySize];
+		BoardCell [,] boardMatrix = new BoardCell[xSize, ySize];
 
 		//first create the cell game objects and use boardMatrix to track them
 		for (int x = 0; x < xSize; x++){
@@ -28,7 +28,9 @@ public class BoardGenerator : MonoBehaviour {
 				newCell.transform.name = "Cell " + x + "-" + y;
 				newCell.transform.parent = boardHolder.transform;
 				newCell.GetComponentInChildren<TextMesh>().text = x + "-"+ y;
-				boardMatrix [x,y] = newCell;
+				//boardMatrix [x,y] = newCell;
+				boardMatrix [x,y] = newCell.GetComponent<BoardCell>();
+
 
 				creationPointer.x++;
 			}
@@ -48,7 +50,18 @@ public class BoardGenerator : MonoBehaviour {
 	}
 
 
-	private void SetNeighbours(int x, int y, GameObject [,] board){
+	//private void SetNeighbours(int x, int y, GameObject [,] board){
+	private void SetNeighbours(int x, int y, BoardCell [,] board){
+
+		if (x > 0)
+			board[y,x].GetComponent<BoardCell>().children[0] = board [y,x-1]; //west child
+		if (x < xSize-1)
+			board[y,x].GetComponent<BoardCell>().children[1] = board [y,x+1]; //east child
+		if (y>0)
+			board [y,x].GetComponent<BoardCell>().children[2] = board [y-1,x]; //south child
+		if (y<ySize-1)
+			board [y,x].GetComponent<BoardCell>().children[3] = board [y+1,x]; //north child
+/*
 		if (x > 0)
 			board[y,x].GetComponent<BoardCell>().westN = board [y,x-1];
 		if (x < xSize-1)
@@ -57,7 +70,7 @@ public class BoardGenerator : MonoBehaviour {
 			board [y,x].GetComponent<BoardCell>().southN = board [y-1,x];
 		if (y<ySize-1)
 			board [y,x].GetComponent<BoardCell>().northN = board [y+1,x];
-
+*/
 	}
 
 

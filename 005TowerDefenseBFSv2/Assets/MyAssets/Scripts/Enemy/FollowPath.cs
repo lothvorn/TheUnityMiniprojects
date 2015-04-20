@@ -14,12 +14,13 @@ public class FollowPath : MonoBehaviour {
 	public bool targetReached = false;
 	// Use this for initialization
 	void Start () {
+		/*
 		//for testing
 		path.Add (GameObject.Find ("WP1"));
 		path.Add (GameObject.Find ("WP2"));
 		path.Add (GameObject.Find ("WP3"));
 		//for testing end
-
+		*/
 		GetNextWaypoint();
 	
 	}
