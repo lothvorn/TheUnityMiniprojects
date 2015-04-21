@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour {
 		lifebar.UpdateValue( normalized );
 
 		if (currentDamage >= maxLife){
-			gameManager.SetScore (gameManager.score++);
+			gameManager.SetScore (1);
 			gameManager.SetCash (gameManager.cash + cashValue);
 			Destroy (gameObject);
 

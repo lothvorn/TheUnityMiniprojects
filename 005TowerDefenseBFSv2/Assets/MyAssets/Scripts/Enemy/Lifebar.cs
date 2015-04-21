@@ -25,7 +25,7 @@ public class Lifebar : MonoBehaviour {
 
 	public void UpdateValue (float newValue){
 		slider.value = newValue;
-		Debug.Log ("-->" + newValue);
+
 	}
 
 }

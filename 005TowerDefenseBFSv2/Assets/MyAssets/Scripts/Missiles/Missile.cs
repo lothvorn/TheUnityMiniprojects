@@ -9,7 +9,7 @@ public class Missile : DamageDealer {
 	private float step;
 	public void Update (){
 		if (target == null){
-			Debug.Log ("missile self destruction");
+
 			Destroy (gameObject);
 		}
 		MoveMissile ();

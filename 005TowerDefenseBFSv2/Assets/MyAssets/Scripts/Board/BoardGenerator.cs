@@ -45,7 +45,7 @@ public class BoardGenerator : MonoBehaviour {
 		//now instantiate crystals and spanwers
 		InstantiateAllSpawners(boardMatrix);
 		InstantiateAllCrystals (boardMatrix);
-
+		InstantiateAllBlockers (boardMatrix);
 /*
 		 crys = (GameObject) Instantiate (crystal,new Vector3 (2,0,3),Quaternion.identity);
 		crys.transform.parent = boardHolder.transform;
@@ -85,50 +85,44 @@ public class BoardGenerator : MonoBehaviour {
 	}
 
 
+
+	private void InstantiateBoardElement (GameObject be, Vector3 position, BoardCell [,] board){
+		GameObject inst = (GameObject) Instantiate (be,position,Quaternion.identity);
+		inst.transform.parent = boardHolder.transform;
+		
+		inst.GetComponent<BoardElement>().boardCell = board [(int)position.z,(int)position.x];
+		inst.GetComponent<BoardElement>().boardCell.collider.enabled = false;
+	}
+
+	
+
+
 	private void InstantiateAllSpawners(BoardCell [,] board){
 		//first spawner is mandatory
-		InstantiateSingleSpawner (new Vector3 (0,0,0), board);
+		InstantiateBoardElement (enemyInstantiator, new Vector3 (0,0,0), board);
 		for (int i = 1; i < ySize; i++){
-			if (Random.Range (0,1)<=spawnerFrequency){
-				//InstantiateSingleSpawner (new Vector3 (i,0,0), board);
-
+			if (Random.Range (0,100)<=spawnerFrequency){
+				InstantiateBoardElement ( enemyInstantiator,new Vector3 (i,0,0), board);
 			}
 		}
-
 	}
 
 	private void InstantiateAllCrystals(BoardCell [,] board){
 		for (int i = 0; i < ySize; i++){
-			InstantiateSingleChrystal (new Vector3 (i,0,xSize-1),board);
+			InstantiateBoardElement (crystal, new Vector3 (i, 0, xSize - 1), board);
+			//InstantiateSingleChrystal (new Vector3 (i,0,xSize-1),board);
 		}
 	}
-/*
-	private void InstantiateAllBlockers (BoardCell [,]board){
-		for (int i = 0; i< xSize - 1; i++){
-			for (int j = 0; j < ySize; j++){
-				if (Random.Range (0,1)<=blockerFrequency){
-					GameObject inst = (GameObject) Instantiate (blocker,position,Quaternion.identity);
+
+	private void InstantiateAllBlockers (BoardCell [,] board){
+		for (int i = 0; i < ySize; i++){
+			for (int j = 2; j < xSize -1; j++){
+				if (Random.Range (0,100) <= blockerFrequency){
+					InstantiateBoardElement (blocker, new Vector3 (i, 0, j), board);
 				}
 			}
 		}
-
 	}
-*/
-	private void InstantiateSingleSpawner (Vector3 position, BoardCell [,] board){
-		GameObject inst = (GameObject) Instantiate (enemyInstantiator,position,Quaternion.identity);
-		inst.transform.parent = boardHolder.transform;
-		inst.GetComponent<Instantiator>().boardCell = board [(int)position.z,(int)position.x];
-		inst.GetComponent<Instantiator>().boardCell.collider.enabled = false;
-	}
-
-	private void InstantiateSingleChrystal (Vector3 position, BoardCell [,] board){
-
-		GameObject crys = (GameObject) Instantiate (crystal,position,Quaternion.identity);
-		crys.transform.parent = boardHolder.transform;
-		crys.GetComponent<Crystal>().cell = board [(int)position.z,(int)position.x];
-
-	}
-
-
+		 
 
 }

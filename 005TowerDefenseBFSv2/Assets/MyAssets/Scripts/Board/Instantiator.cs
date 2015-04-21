@@ -5,7 +5,8 @@ public class Instantiator : BoardElement {
 
 	//references to external (keep public)
 	public GameObject enemyToInstantiate;
-
+	public float spawnDelayMin = 2.5f;
+	public float spawnDelayMax = 15f;
 	public float delay = 2.5f;
 
 	//refeernces to external (hide in inspector)
@@ -23,7 +24,7 @@ public class Instantiator : BoardElement {
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		enemiesHolder = GameObject.Find ("EnemiesHolder");
 		boardCell.blocked = true;
-
+		delay = Random.Range (spawnDelayMin, spawnDelayMax);
 
 
 	}

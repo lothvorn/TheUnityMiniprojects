@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
+	void Update () {
 		if (!navigationManager.moving){
 
 			return;
@@ -25,16 +25,16 @@ public class CameraMovement : MonoBehaviour {
 		Vector3 posicionLocal = transform.localPosition;
 		
 		if (Input.GetAxis("Vertical") > 0)
-			transform.Translate (Vector3.forward*speed);
+			transform.Translate (Vector3.forward*speed*Time.deltaTime);
 		
 		if (Input.GetAxis("Vertical") < 0)
-			transform.Translate( Vector3.back*speed);
+			transform.Translate( Vector3.back*speed*Time.deltaTime);
 		
 		if (Input.GetAxis("Horizontal") >0)
-			transform.Translate (Vector3.right *speed);
+			transform.Translate (Vector3.right *speed*Time.deltaTime);
 		
 		if (Input.GetAxis("Horizontal") < 0)
-			transform.Translate (Vector3.left *speed);
+			transform.Translate (Vector3.left *speed*Time.deltaTime);
 
 
 	}
