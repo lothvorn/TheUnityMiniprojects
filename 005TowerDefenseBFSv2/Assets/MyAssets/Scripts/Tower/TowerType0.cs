@@ -12,4 +12,9 @@ public class TowerType0 : Tower {
 		newMissile.GetComponent<Missile>().damage = damage;
 	}
 
+
+
+
+
+
 }

@@ -16,6 +16,7 @@ public class Tower : MonoBehaviour {
 
 	//internal vars (to hide)
 	public bool readyToFire = false;
+	public int enemiesInside = 0;
 
 	//internal vars (to private)
 	public float fireTimer = 0;
@@ -91,7 +92,15 @@ public class Tower : MonoBehaviour {
 		}
 	}
 
-
+	void OnTriggerEnter(Collider other) {
+		if (other.transform.tag == "Enemy")
+			enemiesInside++;
+	}
+	
+	void OnTriggerExit(Collider other) {
+		if (other.transform.tag == "Enemy")
+			enemiesInside--;
+	}
 
 	public virtual void LaunchAttack (){
 		//Debug.Log ("attack launched");

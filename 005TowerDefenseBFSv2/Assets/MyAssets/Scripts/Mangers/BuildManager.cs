@@ -64,6 +64,9 @@ public class BuildManager : MonoBehaviour {
 		if (!towerReadyToBuild)
 			return;
 
+		if (towerInCreation.GetComponent<Tower>().enemiesInside != 0)
+			return;
+
 		//update available cash
 		gameManager.SetCash (gameManager.cash - towerInCreation.GetComponent<Tower>().cost);
 
