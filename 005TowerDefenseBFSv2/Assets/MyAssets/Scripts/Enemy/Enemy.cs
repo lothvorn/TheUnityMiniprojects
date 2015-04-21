@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour {
 
 		ArrayList newPath = null;
 		if (currentTarget != null)
-			newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<Crystal>().cell);
+			newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<BoardElement>().boardCell);
 
 		//followPath.SetNewPath (newPath);
 		followPath.SetInitialPath (newPath);
@@ -53,9 +53,10 @@ public class Enemy : MonoBehaviour {
 		lifebar.UpdateValue( normalized );
 
 		if (currentDamage >= maxLife){
-			Destroy (gameObject);
 			gameManager.SetScore (gameManager.score++);
 			gameManager.SetCash (gameManager.cash + cashValue);
+			Destroy (gameObject);
+
 		}
 	}
 
@@ -64,7 +65,7 @@ public class Enemy : MonoBehaviour {
 			currentTarget = FindClosestTarget ();
 			ArrayList newPath = null;
 			if (currentTarget != null)
-				newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<Crystal>().cell);
+				newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<BoardElement>().boardCell);
 			
 
 			//followPath.SetNewPath (newPath);
@@ -92,7 +93,7 @@ public class Enemy : MonoBehaviour {
 
 	public void ResetPath (){
 
-		ArrayList newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<Crystal>().cell);		
+		ArrayList newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<BoardElement>().boardCell);		
 		followPath.SetInitialPath (newPath);
 
 	}

@@ -30,6 +30,9 @@ public class Missile : DamageDealer {
 
 
 	public void MoveMissile(){
+		if (target == null)
+			return;
+
 		float step = speed * Time.deltaTime;
 		transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
 

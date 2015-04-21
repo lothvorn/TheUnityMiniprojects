@@ -7,7 +7,7 @@ public class CrystalReactor : MonoBehaviour {
 
 	public void OnTriggerEnter (Collider col){
 			if (col.transform.tag == "Enemy"){
-			crystal.GetComponent<Crystal>().cell.blocked = false;
+			crystal.GetComponent<BoardElement>().boardCell.blocked = false;
 			Destroy (col.transform.gameObject);
 			Destroy (crystal);
 		}

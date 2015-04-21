@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Instantiator : MonoBehaviour {
+public class Instantiator : BoardElement {
 
 	//references to external (keep public)
 	public GameObject enemyToInstantiate;
@@ -9,7 +9,7 @@ public class Instantiator : MonoBehaviour {
 	public float delay = 2.5f;
 
 	//refeernces to external (hide in inspector)
-	public BoardCell boardCell;
+	//public BoardCell boardCell;
 
 	//to set private
 	float delayTimer = 0f;
@@ -23,6 +23,7 @@ public class Instantiator : MonoBehaviour {
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		enemiesHolder = GameObject.Find ("EnemiesHolder");
 		boardCell.blocked = true;
+
 
 
 	}
