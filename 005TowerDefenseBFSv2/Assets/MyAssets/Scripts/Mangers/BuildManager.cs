@@ -67,6 +67,10 @@ public class BuildManager : MonoBehaviour {
 		//update available cash
 		gameManager.SetCash (gameManager.cash - towerInCreation.GetComponent<Tower>().cost);
 
+		towerInCreation.GetComponentInParent<Tower>().readyToFire = true;
+		lastOverCell.GetComponent<BoardCell>().blocked = true;
+
+
 		//reset building vars
 		towerInCreation.transform.parent = towersHolder.transform;
 		towerReadyToBuild = false;
@@ -95,5 +99,7 @@ public class BuildManager : MonoBehaviour {
 		towerReadyToBuild = true;
 	}
 
+
+	//recalculate path for all enemyes
 
 }

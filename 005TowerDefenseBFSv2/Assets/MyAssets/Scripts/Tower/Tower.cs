@@ -12,9 +12,15 @@ public class Tower : MonoBehaviour {
 	public GameObject turretHead;
 	public GameObject cannonMuzzle;
 	public GameObject projectile;
+
+
 	//internal vars (to hide)
+	public bool readyToFire = false;
+
+	//internal vars (to private)
 	public float fireTimer = 0;
 	public GameObject target = null;
+
 
 
 
@@ -65,6 +71,9 @@ public class Tower : MonoBehaviour {
 	}
 
 	private void TryToAttack (){
+		if (!readyToFire)
+			return;
+
 		if (target != null)
 			fireTimer += Time.deltaTime;
 

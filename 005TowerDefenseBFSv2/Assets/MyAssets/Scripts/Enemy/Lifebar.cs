@@ -18,7 +18,7 @@ public class Lifebar : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		canvas.LookAt (mainCamera.transform);
-		canvas.eulerAngles = new Vector3 (transform.eulerAngles.x, mainCamera.transform.eulerAngles.y-180);
+		canvas.eulerAngles = new Vector3 (-mainCamera.transform.eulerAngles.x, mainCamera.transform.eulerAngles.y-180);
 
 
 	}
