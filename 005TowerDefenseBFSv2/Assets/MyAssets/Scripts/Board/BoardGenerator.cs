@@ -52,7 +52,16 @@ public class BoardGenerator : MonoBehaviour {
 		GameObject crys = (GameObject) Instantiate (crystal,new Vector3 (xSize-1,0,ySize-1),Quaternion.identity);
 		crys.transform.parent = boardHolder.transform;
 		crys.GetComponent<Crystal>().cell = boardMatrix [xSize-1,ySize-1];
+
+		 crys = (GameObject) Instantiate (crystal,new Vector3 (2,0,3),Quaternion.identity);
+		crys.transform.parent = boardHolder.transform;
+		crys.GetComponent<Crystal>().cell = boardMatrix [3,2];
+
+		 crys = (GameObject) Instantiate (crystal,new Vector3 (2,0,2),Quaternion.identity);
+		crys.transform.parent = boardHolder.transform;
+		crys.GetComponent<Crystal>().cell = boardMatrix [2,2];
 	//for testing end
+
 		//now use boardMatrix to link each cell to its neighbours. Each cell will kwnow who are its neighbours
 		for (int y = 0; y < ySize; y++){
 			for (int x = 0; x < ySize; x++){

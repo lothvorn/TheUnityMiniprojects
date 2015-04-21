@@ -19,6 +19,8 @@ public class BFSPathFinding : MonoBehaviour {
 
 
 	public ArrayList BFSMethod (BoardCell start, BoardCell target){
+
+		Debug.Log ("BFS call");
 		ArrayList calculatedPath = new ArrayList();
 
 		//first reset cells flags

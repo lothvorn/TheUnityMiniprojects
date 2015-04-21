@@ -46,17 +46,23 @@ public class FollowPath : MonoBehaviour {
 
 
 
+	public void SetInitialPath (ArrayList initialPath){
+		SetNewPath (initialPath);
+		GetNextWaypoint ();
+	}
 	public void SetNewPath (ArrayList newPath){
 		if (path != null)
 			path.Clear ();
 		path = newPath;
 		GetNextWaypoint ();
-		GetNextWaypoint ();
+//		GetNextWaypoint ();
 
 	}
 
 
 	public void GetNextWaypoint(){
+		if (path == null)
+			return;
 		if (path.Count == 0){
 			targetReached = true;
 			return;
@@ -69,8 +75,7 @@ public class FollowPath : MonoBehaviour {
 	}
 
 	private void MoveToCurrentWP(){
-//		Debug.Log (currentWaypoint.transform.position);
-//		Debug.Log (currentWaypoint.waypoint.transform.position);
+
 		Vector3 heading = currentWaypoint.waypoint.transform.position - transform.position;
 		Vector3 direction = heading/heading.magnitude;
 
@@ -79,10 +84,7 @@ public class FollowPath : MonoBehaviour {
 	}
 
 	private void CheckWaypointReached(){
-		//Vector3 heading = transform.position - currentWaypoint.transform.position;
 		Vector3 heading = transform.position - currentWaypoint.waypoint.transform.position;
-
-		//Debug.Log (heading.magnitude);
 
 		if (heading.magnitude <= waypointReachedDistance){
 			GetNextWaypoint();

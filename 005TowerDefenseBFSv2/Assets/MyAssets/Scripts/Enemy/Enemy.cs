@@ -30,14 +30,19 @@ public class Enemy : MonoBehaviour {
 
 		currentTarget = FindClosestTarget();
 
+		ArrayList newPath = null;
+		if (currentTarget != null)
+			newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<Crystal>().cell);
 
-		ArrayList newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<Crystal>().cell);
+		//followPath.SetNewPath (newPath);
+		followPath.SetInitialPath (newPath);
 
-		followPath.SetNewPath (newPath);
-		//followPath.GetNextWaypoint();
-		Debug.Log ("path ready");
 	}
 
+
+	void Update(){
+		CheckStillHasTarget();
+	}
 
 
 
@@ -52,7 +57,18 @@ public class Enemy : MonoBehaviour {
 			Destroy (gameObject);
 	}
 
+	private void CheckStillHasTarget(){
+		if (currentTarget == null){
+			currentTarget = FindClosestTarget ();
+			ArrayList newPath = null;
+			if (currentTarget != null)
+				newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<Crystal>().cell);
+			
 
+			//followPath.SetNewPath (newPath);
+			followPath.SetInitialPath (newPath);
+		}
+	}
 	private GameObject FindClosestTarget (){
 		GameObject [] crystals = GameObject.FindGameObjectsWithTag("Crystal");
 		GameObject closest = null;
@@ -73,3 +89,5 @@ public class Enemy : MonoBehaviour {
 
 
 }
+
+//followPath.SetNewPath (newPath);
