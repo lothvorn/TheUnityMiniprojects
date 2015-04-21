@@ -23,6 +23,8 @@ public class Instantiator : MonoBehaviour {
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		enemiesHolder = GameObject.Find ("EnemiesHolder");
 		boardCell.blocked = true;
+
+
 	}
 	
 	// Update is called once per frame

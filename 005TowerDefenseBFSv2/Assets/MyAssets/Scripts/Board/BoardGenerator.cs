@@ -10,15 +10,15 @@ public class BoardGenerator : MonoBehaviour {
 	//public
 	public int xSize=5;
 	public int ySize=5;
-	public int spawnerFrequency = 1;
-
+	public float spawnerFrequency = .7f;
+	public float blockerFrequency = .1f;
 
 	//references to other game objects
 	public GameObject boardHolder;
 	public GameObject cell;
 	public GameObject enemyInstantiator;
 	public GameObject crystal;
-
+	public GameObject blocker;
 	// Use this for initialization
 	void Start () {
 		Vector3 creationPointer = new Vector3 (0,0);
@@ -33,7 +33,6 @@ public class BoardGenerator : MonoBehaviour {
 				newCell.transform.name = "Cell " + x + "-" + y;
 				newCell.transform.parent = boardHolder.transform;
 				newCell.GetComponentInChildren<TextMesh>().text = x + "-"+ y;
-				//boardMatrix [x,y] = newCell;
 				boardMatrix [x,y] = newCell.GetComponent<BoardCell>();
 
 
@@ -91,7 +90,8 @@ public class BoardGenerator : MonoBehaviour {
 		InstantiateSingleSpawner (new Vector3 (0,0,0), board);
 		for (int i = 1; i < ySize; i++){
 			if (Random.Range (0,1)<=spawnerFrequency){
-				InstantiateSingleSpawner (new Vector3 (i,0,0), board);
+				//InstantiateSingleSpawner (new Vector3 (i,0,0), board);
+
 			}
 		}
 
@@ -102,7 +102,18 @@ public class BoardGenerator : MonoBehaviour {
 			InstantiateSingleChrystal (new Vector3 (i,0,xSize-1),board);
 		}
 	}
+/*
+	private void InstantiateAllBlockers (BoardCell [,]board){
+		for (int i = 0; i< xSize - 1; i++){
+			for (int j = 0; j < ySize; j++){
+				if (Random.Range (0,1)<=blockerFrequency){
+					GameObject inst = (GameObject) Instantiate (blocker,position,Quaternion.identity);
+				}
+			}
+		}
 
+	}
+*/
 	private void InstantiateSingleSpawner (Vector3 position, BoardCell [,] board){
 		GameObject inst = (GameObject) Instantiate (enemyInstantiator,position,Quaternion.identity);
 		inst.transform.parent = boardHolder.transform;
@@ -117,5 +128,7 @@ public class BoardGenerator : MonoBehaviour {
 		crys.GetComponent<Crystal>().cell = board [(int)position.z,(int)position.x];
 
 	}
+
+
 
 }
