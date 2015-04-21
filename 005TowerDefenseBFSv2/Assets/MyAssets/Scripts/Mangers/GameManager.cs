@@ -5,6 +5,9 @@ public class GameManager : MonoBehaviour {
 	//game parameters (keep public)
 	public int enemiesToInstantiate = 5;
 
+
+
+
 	//to hide
 	public int score;
 	public int cash;
