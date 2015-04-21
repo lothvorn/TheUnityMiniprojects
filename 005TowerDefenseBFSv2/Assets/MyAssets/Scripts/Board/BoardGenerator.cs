@@ -11,13 +11,19 @@ public class BoardGenerator : MonoBehaviour {
 	public int xSize=5;
 	public int ySize=5;
 
+
 	//references to other game objects
 	public GameObject boardHolder;
 	public GameObject cell;
+	public GameObject enemyInstantiator;
+	public GameObject crystal;
 
 	// Use this for initialization
 	void Start () {
 		Vector3 creationPointer = new Vector3 (0,0);
+
+
+
 
 		BoardCell [,] boardMatrix = new BoardCell[xSize, ySize];
 
@@ -25,6 +31,7 @@ public class BoardGenerator : MonoBehaviour {
 		for (int x = 0; x < xSize; x++){
 			for (int y = 0; y < ySize; y++){
 				GameObject newCell = (GameObject) Instantiate (cell, creationPointer, Quaternion.identity);
+	
 				newCell.transform.name = "Cell " + x + "-" + y;
 				newCell.transform.parent = boardHolder.transform;
 				newCell.GetComponentInChildren<TextMesh>().text = x + "-"+ y;
@@ -37,8 +44,15 @@ public class BoardGenerator : MonoBehaviour {
 			creationPointer.x = 0;
 			creationPointer.z++;
 		}
+	//for testing
+		GameObject inst = (GameObject) Instantiate (enemyInstantiator,new Vector3 (0,0,0),Quaternion.identity);
+		inst.transform.parent = boardHolder.transform;
+		inst.GetComponent<Instantiator>().boardCell = boardMatrix [0,0];
 
-
+		GameObject crys = (GameObject) Instantiate (crystal,new Vector3 (xSize-1,0,ySize-1),Quaternion.identity);
+		crys.transform.parent = boardHolder.transform;
+		crys.GetComponent<Crystal>().cell = boardMatrix [xSize-1,ySize-1];
+	//for testing end
 		//now use boardMatrix to link each cell to its neighbours. Each cell will kwnow who are its neighbours
 		for (int y = 0; y < ySize; y++){
 			for (int x = 0; x < ySize; x++){

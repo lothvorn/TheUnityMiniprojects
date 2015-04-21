@@ -8,9 +8,13 @@ public class FollowPath : MonoBehaviour {
 	public float speed = 0.5f;
 	public float waypointReachedDistance = 0.01f;
 
+	//public references to other objects in the prefab (keep public)
+	public Enemy enemy;
+
 	//private (to hide)
-	public ArrayList path = new ArrayList();
-	public GameObject currentWaypoint = null;
+	public ArrayList path; 
+	//public GameObject currentWaypoint = null;
+	public BoardCell currentWaypoint = null;
 	public bool targetReached = false;
 	// Use this for initialization
 	void Start () {
@@ -21,7 +25,7 @@ public class FollowPath : MonoBehaviour {
 		path.Add (GameObject.Find ("WP3"));
 		//for testing end
 		*/
-		GetNextWaypoint();
+		//GetNextWaypoint();
 	
 	}
 	
@@ -29,6 +33,12 @@ public class FollowPath : MonoBehaviour {
 	void Update () {
 		if (targetReached)
 			return;
+		if (path == null)
+			return;
+		/*
+		if (path.Count == 0 )
+			return;
+		*/
 		MoveToCurrentWP();
 		CheckWaypointReached();
 
@@ -36,17 +46,32 @@ public class FollowPath : MonoBehaviour {
 
 
 
-	private void GetNextWaypoint(){
+	public void SetNewPath (ArrayList newPath){
+		if (path != null)
+			path.Clear ();
+		path = newPath;
+		GetNextWaypoint ();
+		GetNextWaypoint ();
+
+	}
+
+
+	public void GetNextWaypoint(){
 		if (path.Count == 0){
 			targetReached = true;
 			return;
 		}
-		currentWaypoint = (GameObject) path[0];
+
+		enemy.currentCell = currentWaypoint;
+		currentWaypoint = (BoardCell) path[0];
+
 		path.RemoveAt(0);
 	}
 
 	private void MoveToCurrentWP(){
-		Vector3 heading = currentWaypoint.transform.position - transform.position;
+//		Debug.Log (currentWaypoint.transform.position);
+//		Debug.Log (currentWaypoint.waypoint.transform.position);
+		Vector3 heading = currentWaypoint.waypoint.transform.position - transform.position;
 		Vector3 direction = heading/heading.magnitude;
 
 		transform.Translate (direction * speed * Time.deltaTime);
@@ -54,7 +79,8 @@ public class FollowPath : MonoBehaviour {
 	}
 
 	private void CheckWaypointReached(){
-		Vector3 heading = transform.position - currentWaypoint.transform.position;
+		//Vector3 heading = transform.position - currentWaypoint.transform.position;
+		Vector3 heading = transform.position - currentWaypoint.waypoint.transform.position;
 
 		//Debug.Log (heading.magnitude);
 
