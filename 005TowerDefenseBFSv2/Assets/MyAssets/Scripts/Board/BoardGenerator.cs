@@ -10,6 +10,7 @@ public class BoardGenerator : MonoBehaviour {
 	//public
 	public int xSize=5;
 	public int ySize=5;
+	public int spawnerFrequency = 1;
 
 
 	//references to other game objects
@@ -21,9 +22,6 @@ public class BoardGenerator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Vector3 creationPointer = new Vector3 (0,0);
-
-
-
 
 		BoardCell [,] boardMatrix = new BoardCell[xSize, ySize];
 
@@ -44,14 +42,11 @@ public class BoardGenerator : MonoBehaviour {
 			creationPointer.x = 0;
 			creationPointer.z++;
 		}
-	//for testing
-		GameObject inst = (GameObject) Instantiate (enemyInstantiator,new Vector3 (0,0,0),Quaternion.identity);
-		inst.transform.parent = boardHolder.transform;
-		inst.GetComponent<Instantiator>().boardCell = boardMatrix [0,0];
+	
+		//now instantiate crystals and spanwers
+		InstantiateAllSpawners(boardMatrix);
+		InstantiateAllCrystals (boardMatrix);
 
-		GameObject crys = (GameObject) Instantiate (crystal,new Vector3 (xSize-1,0,ySize-1),Quaternion.identity);
-		crys.transform.parent = boardHolder.transform;
-		crys.GetComponent<Crystal>().cell = boardMatrix [xSize-1,ySize-1];
 /*
 		 crys = (GameObject) Instantiate (crystal,new Vector3 (2,0,3),Quaternion.identity);
 		crys.transform.parent = boardHolder.transform;
@@ -65,7 +60,7 @@ public class BoardGenerator : MonoBehaviour {
 
 		//now use boardMatrix to link each cell to its neighbours. Each cell will kwnow who are its neighbours
 		for (int y = 0; y < ySize; y++){
-			for (int x = 0; x < ySize; x++){
+			for (int x = 0; x < xSize; x++){
 				SetNeighbours(x,y, boardMatrix);
 			}
 		}
@@ -76,27 +71,51 @@ public class BoardGenerator : MonoBehaviour {
 
 	//private void SetNeighbours(int x, int y, GameObject [,] board){
 	private void SetNeighbours(int x, int y, BoardCell [,] board){
+		if (x>0)
+			board [x,y].GetComponent<BoardCell>().children[0] = board[x-1,y]; //south child
 
-		if (x > 0)
-			board[y,x].GetComponent<BoardCell>().children[0] = board [y,x-1]; //west child
+
 		if (x < xSize-1)
-			board[y,x].GetComponent<BoardCell>().children[1] = board [y,x+1]; //east child
+			board[x,y].GetComponent<BoardCell>().children[1] = board [x+1,y]; //north child
+	
 		if (y>0)
-			board [y,x].GetComponent<BoardCell>().children[2] = board [y-1,x]; //south child
+			board [x,y].GetComponent<BoardCell>().children[2] = board [x,y-1]; //south child
 		if (y<ySize-1)
-			board [y,x].GetComponent<BoardCell>().children[3] = board [y+1,x]; //north child
-/*
-		if (x > 0)
-			board[y,x].GetComponent<BoardCell>().westN = board [y,x-1];
-		if (x < xSize-1)
-			board[y,x].GetComponent<BoardCell>().eastN = board [y,x+1];
-		if (y>0)
-			board [y,x].GetComponent<BoardCell>().southN = board [y-1,x];
-		if (y<ySize-1)
-			board [y,x].GetComponent<BoardCell>().northN = board [y+1,x];
-*/
+			board [x,y].GetComponent<BoardCell>().children[3] = board [x,y+1]; //north child
+
 	}
 
 
+	private void InstantiateAllSpawners(BoardCell [,] board){
+		//first spawner is mandatory
+		InstantiateSingleSpawner (new Vector3 (0,0,0), board);
+		for (int i = 1; i < ySize; i++){
+			if (Random.Range (0,1)<=spawnerFrequency){
+				InstantiateSingleSpawner (new Vector3 (i,0,0), board);
+			}
+		}
+
+	}
+
+	private void InstantiateAllCrystals(BoardCell [,] board){
+		for (int i = 0; i < ySize; i++){
+			InstantiateSingleChrystal (new Vector3 (i,0,xSize-1),board);
+		}
+	}
+
+	private void InstantiateSingleSpawner (Vector3 position, BoardCell [,] board){
+		GameObject inst = (GameObject) Instantiate (enemyInstantiator,position,Quaternion.identity);
+		inst.transform.parent = boardHolder.transform;
+		inst.GetComponent<Instantiator>().boardCell = board [(int)position.z,(int)position.x];
+		inst.GetComponent<Instantiator>().boardCell.collider.enabled = false;
+	}
+
+	private void InstantiateSingleChrystal (Vector3 position, BoardCell [,] board){
+
+		GameObject crys = (GameObject) Instantiate (crystal,position,Quaternion.identity);
+		crys.transform.parent = boardHolder.transform;
+		crys.GetComponent<Crystal>().cell = board [(int)position.z,(int)position.x];
+
+	}
 
 }

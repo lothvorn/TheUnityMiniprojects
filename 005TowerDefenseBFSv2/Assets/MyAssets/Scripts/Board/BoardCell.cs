@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BoardCell : MonoBehaviour {
-	public BoxCollider collider;
+	new public BoxCollider collider;
 
 	//for pathfinding algorithims (to hide)
 	public bool verified = false;
