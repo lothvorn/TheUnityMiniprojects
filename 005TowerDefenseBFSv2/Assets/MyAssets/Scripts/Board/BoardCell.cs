@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class BoardCell : MonoBehaviour {
+	public BoxCollider collider;
+
 	//for pathfinding algorithims (to hide)
 	public bool verified = false;
 	public BoardCell parent = null;

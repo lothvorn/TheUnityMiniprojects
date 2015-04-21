@@ -26,4 +26,14 @@ public class GameManager : MonoBehaviour {
 		score = _score;
 		guiManager.SetScore (_score);
 	}
+
+
+	public void RecaltulateAllEnemiesPath(){
+		GameObject [] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+		foreach (GameObject en in enemies){
+			en.GetComponent<Enemy>().ResetPath();
+		}
+
+	}
 }

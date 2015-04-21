@@ -40,6 +40,7 @@ public class Tower : MonoBehaviour {
 
 
 	private float DistanceToTarget() {
+		//Debug.Log ("DIST:" +(transform.position - target.transform.position).magnitude);
 		return (transform.position - target.transform.position).magnitude;
 	}
 
@@ -74,6 +75,13 @@ public class Tower : MonoBehaviour {
 		if (!readyToFire)
 			return;
 
+		if (target == null){
+			fireTimer = 0;
+			return;
+		}
+		if (DistanceToTarget() > range)
+			return;
+
 		if (target != null)
 			fireTimer += Time.deltaTime;
 
@@ -83,7 +91,9 @@ public class Tower : MonoBehaviour {
 		}
 	}
 
+
+
 	public virtual void LaunchAttack (){
-		Debug.Log ("attack launched");
+		//Debug.Log ("attack launched");
 	}
 }

@@ -88,6 +88,12 @@ public class Enemy : MonoBehaviour {
 	}
 
 
+	public void ResetPath (){
+
+		ArrayList newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<Crystal>().cell);		
+		followPath.SetInitialPath (newPath);
+
+	}
 }
 
 //followPath.SetNewPath (newPath);

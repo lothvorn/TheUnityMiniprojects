@@ -23,7 +23,7 @@ public class BuildManager : MonoBehaviour {
 
 		//if building-tower then move the proper tower to the last selected cell if valid
 		if (towerReadyToBuild && lastOverCell != null && towerInCreation != null){
-			Debug.Log ("++"+lastOverCell.name);
+//			Debug.Log ("++"+lastOverCell.name);
 
 			Vector3 lastOveredMarker = lastOverCell.GetComponent<BoardCell>().pathCenter.transform.position;
 			if (towerInCreation.transform.position != lastOveredMarker)
@@ -69,13 +69,17 @@ public class BuildManager : MonoBehaviour {
 
 		towerInCreation.GetComponentInParent<Tower>().readyToFire = true;
 		lastOverCell.GetComponent<BoardCell>().blocked = true;
-
+		lastOverCell.GetComponent<BoardCell>().collider.enabled = false;
 
 		//reset building vars
 		towerInCreation.transform.parent = towersHolder.transform;
 		towerReadyToBuild = false;
 		towerInCreation = null;
 		lastOverCell = null;
+
+
+		//and finally make all enemies recalculate their path to current targets (performed by the game manager)
+		gameManager.RecaltulateAllEnemiesPath();
 	}
 
 	//invoked from GUI buttons
