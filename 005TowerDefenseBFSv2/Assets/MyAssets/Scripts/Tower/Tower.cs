@@ -26,7 +26,7 @@ public class Tower : MonoBehaviour {
 
 
 	public void Update (){
-		if (target == null || DistanceToTarget() > range ){ //|| targetOutOfRange
+		if (target == null || DistanceToTarget() > range ){
 			FindClosestTarget();
 		}
 

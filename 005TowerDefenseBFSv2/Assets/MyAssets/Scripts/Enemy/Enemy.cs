@@ -6,14 +6,13 @@ public class Enemy : MonoBehaviour {
 	//public parameters
 	public int maxLife =10;
 	public int currentDamage = 0;
-
+	public int cashValue = 10;
 	//references to other objecs in prefab (keep public)
 	public Lifebar lifebar;
 
 
 	//references to others (hide in inspector)
 	public GameObject currentTarget; //this is a crystal prefab
-	//public BoardCell currentTarget;
 	public BoardCell currentCell;
 
 
@@ -53,8 +52,11 @@ public class Enemy : MonoBehaviour {
 
 		lifebar.UpdateValue( normalized );
 
-		if (currentDamage >= maxLife)
+		if (currentDamage >= maxLife){
 			Destroy (gameObject);
+			gameManager.SetScore (gameManager.score++);
+			gameManager.SetCash (gameManager.cash + cashValue);
+		}
 	}
 
 	private void CheckStillHasTarget(){
