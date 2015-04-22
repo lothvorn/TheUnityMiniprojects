@@ -6,13 +6,14 @@ public class GameManager : MonoBehaviour {
 	public int maxEnemies = 5;
 
 	public int enemiesToInstantiate;
-	public int remainingCrystals;
+	public int destroyedCrystals;
 
 
 
 	//to hide
 	public int score;
 	public int cash;
+	public int maxCrystals;
 
 
 
@@ -26,14 +27,14 @@ public class GameManager : MonoBehaviour {
 		guiManager.SetCash (cash);
 		guiManager.SetScore (score);
 		enemiesToInstantiate = maxEnemies;
-		remainingCrystals = GameObject.FindGameObjectsWithTag("Crystal").Length;
+		maxCrystals = GameObject.FindGameObjectsWithTag("Crystal").Length;
 
 	}
 
 	public void Update (){
-		if (score >= maxEnemies)
+		if (score + destroyedCrystals >= maxEnemies)
 			GameWon();
-		if (remainingCrystals <= 0)
+		if (destroyedCrystals >= maxCrystals)
 			GameLost();
 
 

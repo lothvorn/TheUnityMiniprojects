@@ -13,7 +13,7 @@ public class FollowPath : MonoBehaviour {
 
 	//private (to hide)
 	public ArrayList path; 
-	//public GameObject currentWaypoint = null;
+
 	public BoardCell currentWaypoint = null;
 	public bool targetReached = false;
 	// Use this for initialization
@@ -35,10 +35,7 @@ public class FollowPath : MonoBehaviour {
 			return;
 		if (path == null)
 			return;
-		/*
-		if (path.Count == 0 )
-			return;
-		*/
+
 		MoveToCurrentWP();
 		CheckWaypointReached();
 

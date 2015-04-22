@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour {
 	public int maxLife =10;
 	public int currentDamage = 0;
 	public int cashValue = 10;
+
 	//references to other objecs in prefab (keep public)
 	public Lifebar lifebar;
 
@@ -92,7 +93,8 @@ public class Enemy : MonoBehaviour {
 
 
 	public void ResetPath (){
-
+		if (currentTarget == null)
+			return;
 		ArrayList newPath = bfs.BFSMethod(currentCell,currentTarget.GetComponent<BoardElement>().boardCell);		
 		followPath.SetInitialPath (newPath);
 
